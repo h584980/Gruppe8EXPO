@@ -6,6 +6,7 @@
 	<persistence-unit name="standPU" transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>DAT108LocalDS</jta-data-source>
+		<class>no.hvl.dat109.Arrangement</class>
 		<class>no.hvl.dat109.Stand</class>
 		<class>no.hvl.dat109.Stemme</class>
 		<properties>

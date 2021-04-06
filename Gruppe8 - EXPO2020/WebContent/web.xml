@@ -2,10 +2,14 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://java.sun.com/xml/ns/javaee" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>Gruppe8</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 	<servlet>
 	    <servlet-name>oversiktservlet</servlet-name>
 	    <servlet-class>no.hvl.dat109.OversiktServlet</servlet-class>
+	</servlet>
+	<servlet>
+	    <servlet-name>registreringsservlet</servlet-name>
+	    <servlet-class>no.hvl.dat109.RegistreringsServlet</servlet-class>
 	</servlet>
 </web-app>

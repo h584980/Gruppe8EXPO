@@ -1,7 +1,6 @@
 package no.hvl.dat109;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 import javax.ejb.EJB;
@@ -27,13 +26,8 @@ public class StandServlet extends HttpServlet {
 	       } else {   
 	    	   
 	    	   String standNavn = request.getParameter("navn");
-	    	   Stand stand = dao.hentStand(standNavn);
-	    	   
-	    	   List<Stemme> stemmer= dao.hentAlleStemmerForStand(stand);
-	   		   stand.setStemmer(stemmer);
-	   		   
-	    	   stand.kalkulerAntallStemmer();
-	    	   stand.kalkulerSnittStemmer();
+	    	   String arrangement = request.getParameter("arrangement");
+	    	   Stand stand = dao.hentStand(standNavn, arrangement);
 	    	   
 	    	   request.setAttribute("stand", stand);
 	    	   request.getRequestDispatcher("stand.jsp")
@@ -48,6 +42,7 @@ public class StandServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String standNavn = request.getParameter("navn");
+ 	   	String arrangement = request.getParameter("arrangement");
 		Integer stemmeVerdi = Integer.parseInt(request.getParameter("vote"));
 			
 		//Sjekk om det er kommet cookies
@@ -61,7 +56,7 @@ public class StandServlet extends HttpServlet {
 		 				
 		if (besoktCookie == null) { 
 			
-			if (stemmeVerdi == null || !dao.finnesStand(standNavn) ) {
+			if (stemmeVerdi == null || !dao.finnesStand(standNavn, arrangement) ) {
 				
 				request.setAttribute("innvalidData", "innvalidData");
 				doGet(request, response);
@@ -70,7 +65,8 @@ public class StandServlet extends HttpServlet {
 				
 				String uniqueId = UUID.randomUUID().toString();
 				
-				CookieUtil.addCookieToResponse(response, standNavn.replace(" ", "_").replace("ø", "oe")
+				CookieUtil.addCookieToResponse(response, standNavn.replace(" ", "_")
+						.replace("ø", "oe")
 						.replace("Ø", "Oe")
 						.replace("æ", "ae")
 						.replace("Æ", "Ae")
@@ -81,6 +77,14 @@ public class StandServlet extends HttpServlet {
 				Stemme nyStemme = new Stemme(standNavn, stemmeVerdi, uniqueId);
 		    	dao.lagreNyStemme(nyStemme);
 		    	
+		    	if (stemmeVerdi == 0) {
+					request.setAttribute("tilbakemelding", "Du har valgt å ikke avgi stemme");
+
+				} else {
+					request.setAttribute("tilbakemelding", "Din stemme har blitt avgitt!");
+
+				}
+		    	
 		    	request.setAttribute("tilbakemelding", "Din stemme har blitt avgitt!");
 		    	doGet(request, response);
 			}
@@ -88,7 +92,7 @@ public class StandServlet extends HttpServlet {
 		} else {
 				dao.oppdaterStemmeVerdi(besoktCookie, stemmeVerdi);
 				if (stemmeVerdi == 0) {
-					request.setAttribute("tilbakemelding", "Å stemme 0 er det samme som å ikke stemme");
+					request.setAttribute("tilbakemelding", "Du har valgt å trekke stemmen din");
 
 				} else {
 					request.setAttribute("tilbakemelding", "Din stemme har blitt oppdatert til verdi " + stemmeVerdi);

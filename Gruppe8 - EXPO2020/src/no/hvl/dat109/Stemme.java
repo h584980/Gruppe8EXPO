@@ -1,14 +1,10 @@
 package no.hvl.dat109;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-// import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-
 
 @Entity 
 @Table(schema = "expo2020", name = "Stemme")

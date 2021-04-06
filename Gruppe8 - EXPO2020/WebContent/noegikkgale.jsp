@@ -11,7 +11,7 @@
 	<div class="innhold">
 		<h2>Noe gikk gale...</h2>
 		<div class="signin">
-			<a href="standservlet?stand=${stand}">Gå tilbake</a>
+			<a href="index.jsp">Gå tilbake</a>
 		</div>
 	</div>
 	</div>

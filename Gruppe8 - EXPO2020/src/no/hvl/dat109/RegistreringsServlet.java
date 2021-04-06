@@ -17,7 +17,6 @@ public class RegistreringsServlet extends HttpServlet {
 	private StandOgStemmeDAO dao;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 	   if (request.getAttribute("innvalidData") != null) {
 		   request.getRequestDispatcher("index.jsp")
     	   .forward(request, response);
@@ -25,31 +24,24 @@ public class RegistreringsServlet extends HttpServlet {
     	   request.getRequestDispatcher("registreringsbekreftelse.jsp")
     	   .forward(request, response);
        }
-	   
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		String navn = request.getParameter("navn").trim();
-		String kode = request.getParameter("kode");
 		
-        if (!InndataValidator.valliderAllData(dao, request, navn, kode)) {
-        	
-        	// TILBAKE TIL REGISTRERING MED UGYLDIGE FELTER MARKERT
-        	
+		String navn = request.getParameter("navn").trim();
+		String arrangement = request.getParameter("arrangement");
+		
+    	// TILBAKE TIL REGISTRERING MED UGYLDIGE FELTER MARKERT
+        if (!Validator.valliderStand(dao, request, navn, arrangement)) {        	
         	request.setAttribute("innvalidData", "innvalidData");
         	doGet(request, response);
-        	 	
-        } else {
-
-            // OPPRETT NY DELTAGER OG LEGG TIL I DATABASE
-        	
+        // OPPRETT NY DELTAGER OG LEGG TIL I DATABASE
+        } else { 
         	Stand nyttStand = new Stand(navn);
-        	dao.lagreNyttStand(nyttStand);
-        	
+        	dao.lagreNyttStand(nyttStand, arrangement);
             request.setAttribute("nyttStand", nyttStand);
-            
             doGet(request, response);
         }
 	}

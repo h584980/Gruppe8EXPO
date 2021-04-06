@@ -1,6 +1,26 @@
+ul {
+    list-style-type: none;
+    list-style-position: inside;
+    display: flex;
+    width: 90%;
+ }
+
+.graph li {
+    width:111px; height:180px; /*set a bar width and a full height*/
+    position:relative; /*needed for the actual bar fill element*/
+    margin:5px;
+ }
+
+ .graph span {
+    position:absolute;right:0;bottom:0;left:0; /*"bottom-align" the bars, widths will be set inline*/
+    border-radius: 5px;
+    background-color: #4CAF50;
+    padding: 1px;
+ }
+
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: black;
+  background-color: white;
 
   min-width: 400px;        /* Suppose you want minimum width of 1000px */
   width: auto !important;  /* Firefox will set width as auto */
@@ -9,13 +29,6 @@ body {
 
 * {
   box-sizing: border-box;
-}
-
-/* Add padding to containers */
-.container {
-  background-color: white;
-  height: 100%;
-  padding: 16px;
 }
 
 .innhold {
@@ -37,7 +50,12 @@ body {
 }
 
 .stemmer {
+   display: flex;
+    align-items: stretch; /* Default */
+    justify-content: space-between;
+    width: 71%;
   text-align: center;
+  margin: auto;
 }
 
 /* Full-width input fields */
@@ -87,6 +105,27 @@ hr {
   opacity: 1;
 }
 
+/* Set a style for the submit button */
+.jalla {
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  padding: 16px 20px;
+  margin: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display:inline-block;
+  width:100%;
+  height:100%;
+  opacity: 0.9;
+}
+
+
+.jalla:hover {
+  opacity: 1;
+}
+
 
 /* Add a blue text color to links */
 a {
@@ -105,11 +144,11 @@ div.innholdOversikt a:hover {
 /* Set a grey background color and center the text of the "sign in" section */
 .signin {
   width: 400px;
-	padding: 16px;
+	padding: 1px;
 	background-color: #f1f1f1;
 	text-align: center;
-  margin: auto;
   border-radius: 5px;
+  margin: auto;
 }
 
 table {
@@ -146,4 +185,7 @@ tr {
 .noInput {
 	border: none;
 }
+
+
+
 

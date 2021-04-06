@@ -46,9 +46,10 @@
 			</div>
 			<div class="signin">
   				<p>
-					<a href="index.jsp">Registrer nytt stand</a>
-				</p>
+						<p>Gå tilbake til <a href="index.jsp">Meny</a></p>
+					
   			</div>
+
  		 </div>
 	</body>
 </html>
